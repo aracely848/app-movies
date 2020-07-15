@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Carousel, CarouselItem, CarouselIndicators, CarouselCaption } from 'reactstrap';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from 'reactstrap';
 import './banner.css';
 
 const items = [
@@ -34,7 +40,18 @@ const Banner = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
-  
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  }
+
   const goToIndex = (newIndex) => {
     if (animating) return;
     setActiveIndex(newIndex);
@@ -45,17 +62,27 @@ const Banner = (props) => {
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.id} >
+        key={item.id}
+      >
         <img src={item.imagen} className="d-block w-100" alt={item.title} />
         <CarouselCaption classname="movie-info" captionText={item.description} captionHeader={item.title} />
+        
+
       </CarouselItem>
     );
   });
 
   return (
-    <Carousel activeIndex={activeIndex} >
+
+    <Carousel
+      activeIndex={activeIndex}
+      next={next}
+      previous={previous}
+    >
       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-       {slides}
+      {slides}
+      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
     </Carousel>
   );
 }

@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardImg, CardImgOverlay, Button, CardTitle, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Row } from 'reactstrap';
 import classnames from 'classnames';
+import './menu.css'
 
+
+function RenderCard({item}) {
+  return (
+    <>
+      { item.map((i) => {
+        return(               
+          <div key={i.id} className="col-6 col-md-3 mb-4 card-father">
+            <img width="100%" src={i.image} alt={i.title} />
+            <div className="card-children pt-7">
+              <div className="card-child mt-7 pt-7">             
+                <h4 className="mb-2 mt-4" >{i.title}</h4>
+                <Button className="mb-2" color="warning" size="lg" block>WATCH NOW</Button>
+                <Button outline color="secondary" size="lg" block>MORE INFO</Button>        
+              </div>   
+            </div>
+          </div>
+        );
+      })}  
+    </>
+  )
+}
 
 const Menu = (props) => {
-  console.log(props)
-    
-    
-    const menu = props.movies.map(movie => {
-        return (
-            <div className="col-6 col-md-3 " key={movie.id}>
-                <Card key={movie.id} >
-                    <CardImg width="100%" src={movie.image} alt={movie.title} />
-                </Card>  
-            </div>            
-        )
-    });
     
     const [activeTab, setActiveTab] = useState('1');
     const toggle = tab => {
@@ -24,7 +34,6 @@ const Menu = (props) => {
 
   return (
     <div>
-
       <Nav tabs>
         <NavItem>
           <NavLink className={classnames({ active: activeTab === '1' })}
@@ -64,39 +73,34 @@ const Menu = (props) => {
         </NavItem>
       </Nav>
       <TabContent activeTab={activeTab}>
-        <TabPane className="d-flex align-content-end flex-wrap" tabId="1">
-          <Row >  
-            {menu}    
+        <TabPane tabId="1">
+          <Row >
+            <RenderCard item={props.movies} />           
           </Row>
         </TabPane>
         <TabPane tabId="2">
           <Row>
-            <Col sm="6">
-            </Col>
+            <RenderCard item={props.new} /> 
           </Row>
         </TabPane>
         <TabPane tabId="3">
           <Row>
-            <Col sm="6">
-            </Col>
+            <RenderCard item={props.popular} /> 
           </Row>
         </TabPane>
         <TabPane tabId="4">
           <Row>
-            <Col sm="6">
-            </Col>
+            <RenderCard item={props.trend} />
           </Row>
         </TabPane>
         <TabPane tabId="5">
           <Row>
-            <Col sm="6">
-            </Col>
+          <RenderCard item={props.favorite} />
           </Row>
         </TabPane>
         <TabPane tabId="6">
           <Row>
-            <Col sm="6">
-            </Col>
+          <RenderCard item={props.recommendation} />
           </Row>
         </TabPane>
       </TabContent>

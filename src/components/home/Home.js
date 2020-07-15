@@ -1,37 +1,33 @@
-import React from 'react';
-import { Card, CardImg } from 'reactstrap';
+import React, {Component} from 'react';
 import Banner from '../banner/Banner';
 import Menu from '../menu/Menu';
 import { MOVIES } from '../movies';
 
-const Home = (props) => {
-    const movies = MOVIES;
-    const menu = movies.map(movie => {
+class Home extends Component {
+    constructor(props) {
+        super(props);    
+        this.state = {
+          movies: MOVIES        
+        };
+    }
+    render() {        
         return (
-            <div className="col-6 col-md-3 " key={movie.id}>
-                <Card key={movie.id} >
-                    <CardImg width="100%" src={movie.image} alt={movie.title} />
-                </Card>  
-            </div>            
+            <React.Fragment>
+                <Banner/>
+                <br/>
+                <div className="container">
+                <Menu 
+                    movies={this.state.movies}
+                    new={this.state.movies.filter((movie) => movie.new, 10)}
+                    popular={this.state.movies.filter((movie) => movie.popular, 10)}
+                    trend={this.state.movies.filter((movie) => movie.trend, 10)}
+                    favorite={this.state.movies.filter((movie) => movie.favorite, 10)}
+                    recommendation={this.state.movies.filter((movie) => movie.recommendation,10)}
+                /> 
+                </div> 
+            </React.Fragment> 
         )
-    });
-    return (
-        <div>
-            <Banner/>
-            <br/>
-            <div className="container">
-            <Menu 
-            movies={movies}
-            new={movies.filter((movie) => movie.new)[0]}
-            popular={movies.filter((movie) => movie.popular)[0]}
-            trend={props.movies.filter((movie) => movie.trend)[0]}
-            favorite={props.movies.filter((movie) => movie.favorite)[0]}
-            recommendation={props.movies.filter((movie) => movie.recommendation)[0]}
-            
-            />  
-            </div> 
-        </div> 
-    )
+    }
 }
 
 
