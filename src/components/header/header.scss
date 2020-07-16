@@ -1,0 +1,35 @@
+.header {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	&__container {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 100%;
+	}
+
+	&__menu {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-right: 72px;	
+		
+		@media screen and (max-width: 600px) {
+      background: white;
+      box-shadow: -3px 4px 5px 1px rgba(0, 0, 0, 0.75);
+			position: absolute;
+      padding-left: 16px;
+      justify-content: flex-start;
+      margin-right: 0;	
+			right: 0;
+      top: 99px;
+      width: 200px;
+			z-index: 1;
+		}
+	}
+}

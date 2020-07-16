@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import './header.css';
+import './header.scss';
 
 class Header extends Component {
 
@@ -24,13 +24,13 @@ class Header extends Component {
 
     return(
       <React.Fragment>
-        <Navbar color="faded" light expand="md" className="options">
-          <div className="allHeader">            
+        <Navbar color="faded" light expand="md" className="header">
+          <div className="header__container">            
             <NavbarBrand className="mr-auto" href="/">
               <img src="assets/images/logo.png" alt="Movies" className="img-fluid"/>
             </NavbarBrand>
             <NavbarToggler onClick={ this.toggleNav } />
-            <Collapse isOpen={this.state.isNavOpen} navbar className="header">
+            <Collapse isOpen={this.state.isNavOpen} navbar className="header__menu">
               <Nav navbar >
                 <NavItem>
                   <NavLink className="nav-link" to="/home">
